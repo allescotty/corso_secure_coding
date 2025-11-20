@@ -45,7 +45,7 @@ require_once 'db_connect.php';
             // SENZA usare prepared statements o escape appropriato
             // Questo permette a un attaccante di iniettare codice SQL arbitrario
 
-            $sql = "SELECT name, description, price FROM products WHERE name LIKE '%$term%'";
+            $sql = "SELECT name, description, price FROM products WHERE name LIKE ?";
 
             echo "<div class='debug-info'>";
             echo "<strong>⚠️ Query SQL eseguita:</strong><br>";
@@ -54,7 +54,10 @@ require_once 'db_connect.php';
 
             try {
                 // Esecuzione della query VULNERABILE (senza prepared statement!)
-                $result = $mysqli->query($sql);
+                $stmt = $mysqli->prepare($sql);
+                $stmt->bind_param("s", $term);
+                $stmt->execute();
+                $result = $stmt->get_result();
 
                 if ($result === false) {
                     $reveal_vulnerability = true;

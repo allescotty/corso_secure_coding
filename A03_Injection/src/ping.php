@@ -44,8 +44,9 @@
             echo "<code>Blacklist: ; | && ||</code>";
             echo "</div>";
 
-            $blacklist = [';', '|', '&&', '||'];
-            $ip_pulito = str_replace($blacklist, '', $ip);
+//            $blacklist = [';', '|', '&&', '||'];
+//            $ip_pulito = str_replace($blacklist, '', $ip);
+            $ip_pulito = preg_replace('/[^0-9.]/', '', $ip);
 
             // Verifica se l'input è stato modificato dalla blacklist
             if ($ip_pulito !== $ip) {
