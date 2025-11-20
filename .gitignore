@@ -1,8 +1,2 @@
 # Docker files
-Dockerfile
-Dockerfile.*
-docker-compose.yml
-docker-compose.yaml
-docker-compose.*.yml
-docker-compose.*.yaml
 
