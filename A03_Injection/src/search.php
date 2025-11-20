@@ -45,7 +45,7 @@ require_once 'db_connect.php';
             // SENZA usare prepared statements o escape appropriato
             // Questo permette a un attaccante di iniettare codice SQL arbitrario
 
-            $sql = "SELECT name, description, price FROM products WHERE name LIKE ?";
+            $sql = "SELECT name, description, price FROM products WHERE name LIKE CONCAT('%', ?, '%')";
 
             echo "<div class='debug-info'>";
             echo "<strong>⚠️ Query SQL eseguita:</strong><br>";
