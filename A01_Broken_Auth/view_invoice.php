@@ -10,6 +10,7 @@ if (!isset($_SESSION['user_id'])) {
 
 // VULNERABILITÀ: Query che recupera la fattura solo per ID, senza verificare user_id
 $invoice_id = $_GET['id'] ?? 0;
+$user_id = $_SESSION['user_id'];
 
 $stmt = $conn->prepare("SELECT * FROM invoices WHERE id = ?");
 $stmt->bind_param("i", $invoice_id);
@@ -21,6 +22,10 @@ if ($result->num_rows === 0) {
 }
 
 $invoice = $result->fetch_assoc();
+
+if($invoice['user_id'] != $user_id){
+    die("Tu non puoi passare!");
+}
 
 require_once 'header.php';
 ?>
